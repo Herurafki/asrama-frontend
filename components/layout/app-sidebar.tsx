@@ -1,6 +1,6 @@
 "use client"
 
-import { GraduationCap, LayoutDashboard, Users, UserPlus, FileText, User } from "lucide-react"
+import { GraduationCap, LayoutDashboard, Users, UserPlus, FileText, User, LucideHome } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
@@ -17,6 +17,11 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    name: "Orang Tua",
+    href: "/dashboard/parents",
+    icon: LucideHome,
   },
   {
     name: "Anak Saya",
