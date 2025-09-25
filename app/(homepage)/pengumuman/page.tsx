@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from 'react-router-dom';
 import { Search, Calendar, ArrowRight, Megaphone } from 'lucide-react';
 import useSWR from 'swr';
-import { fetchPengumuman} from '@/lib/api';
+import { fetchPengumuman} from '@/lib/data';
 
 const PengumumanPage = () => {
   const { data: pengumumanList, isLoading, error } = useSWR('pengumuman', fetchPengumuman);

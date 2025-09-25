@@ -1,7 +1,7 @@
 import { Pengumuman, Album, Gambar, Berita } from '@/types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api.asrama.local';
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true' || true; // Default to mock for demo
+const API_BASE_URL = (import.meta as any).env.VITE_API_BASE_URL || 'https://localhost:8000/api';
+const USE_MOCK = (import.meta as any).env.VITE_USE_MOCK === 'true' || true;
 
 // Mock data
 const mockPengumuman: Pengumuman[] = [

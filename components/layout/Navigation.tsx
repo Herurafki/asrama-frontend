@@ -1,5 +1,8 @@
+'use client'
+
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X } from 'lucide-react';
@@ -19,11 +22,11 @@ const navItems = [
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   const isActive = (path: string) => {
-    if (path === '/') return location.pathname === '/';
-    return location.pathname.startsWith(path);
+    if (path === "/") return pathname === "/";
+    return pathname.startsWith(path);
   };
 
   return (
@@ -31,7 +34,7 @@ export const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 hero-gradient rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">NH</span>
             </div>
@@ -44,7 +47,7 @@ export const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
-              <Link key={item.name} to={item.href}>
+              <Link key={item.name} href={item.href}>
                 <Button
                   variant={isActive(item.href) ? "default" : "ghost"}
                   size="sm"
@@ -79,7 +82,7 @@ export const Navigation = () => {
                 {navItems.map((item) => (
                   <Link
                     key={item.name}
-                    to={item.href}
+                    href={item.href}
                     onClick={() => setIsOpen(false)}
                   >
                     <Button

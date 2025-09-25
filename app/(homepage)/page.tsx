@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Phone, Mail } from 'lucide-react';
 import { siteInfo } from '@/content/site';
 import useSWR from 'swr';
-import { fetchPengumuman } from '@/lib/api';
+import { fetchPengumuman } from '@/lib/data';
 
 const HomePage = () => {
   const { data: pengumumanList } = useSWR('pengumuman', fetchPengumuman);
