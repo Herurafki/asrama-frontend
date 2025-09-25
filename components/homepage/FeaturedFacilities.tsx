@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -54,7 +54,7 @@ export const FeaturedFacilities = () => {
 
         <div className="text-center">
           <Button variant="cta" size="lg" asChild>
-            <Link to="/fasilitas">
+            <Link href="/fasilitas">
               Lihat Semua Fasilitas
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>

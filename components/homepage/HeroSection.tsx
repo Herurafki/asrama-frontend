@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { ArrowRight, Heart } from 'lucide-react';
 import { siteInfo } from '@/content/site';
+import Image from "next/image";
 import heroImage from '@/assets/hero-asrama.jpg';
 
 export const HeroSection = () => {
@@ -9,7 +10,7 @@ export const HeroSection = () => {
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img 
+        <Image 
           src={heroImage}
           alt="Asrama Nurul Hikmah - Lingkungan Islami yang Kondusif"
           className="w-full h-full object-cover"
@@ -33,14 +34,14 @@ export const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
             <Button variant="hero" size="lg" asChild className="min-w-[200px]">
-              <Link to="/tentang">
+              <Link href="/tentang">
                 Tentang Asrama
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             
             <Button variant="donation" size="lg" asChild className="min-w-[200px]">
-              <Link to="/donasi">
+              <Link href="/donasi">
                 <Heart className="mr-2 h-5 w-5" />
                 Donasi Sekarang
               </Link>

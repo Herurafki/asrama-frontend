@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -5,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { Search, Calendar, ArrowRight, Megaphone } from 'lucide-react';
 import useSWR from 'swr';
 import { fetchPengumuman} from '@/lib/data';
@@ -181,7 +182,7 @@ const PengumumanPage = () => {
 
                           <div className="pt-2">
                             <Button variant="ghost" size="sm" asChild>
-                              <Link to={`/pengumuman/${pengumuman.slug}`}>
+                              <Link href={`/pengumuman/${pengumuman.slug}`}>
                                 Baca Selengkapnya
                                 <ArrowRight className="ml-1 h-4 w-4" />
                               </Link>

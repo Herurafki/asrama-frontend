@@ -1,7 +1,7 @@
 import { Layout } from '@/components/layout/Layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { ArrowLeft, Clock } from 'lucide-react';
 
 interface ComingSoonProps {
@@ -34,7 +34,7 @@ export const ComingSoon = ({ title, description, pageTitle }: ComingSoonProps) =
                   
                   <div className="flex flex-col sm:flex-row gap-3 justify-center">
                     <Button variant="default" asChild>
-                      <Link to="/">
+                      <Link href="/">
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Kembali ke Beranda
                       </Link>

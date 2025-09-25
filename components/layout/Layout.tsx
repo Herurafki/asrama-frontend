@@ -1,3 +1,4 @@
+'use client';
 import { ReactNode } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { Navigation } from './Navigation';

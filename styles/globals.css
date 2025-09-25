@@ -37,6 +37,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --primary: oklch(0.86 0.12 90);             
+  --primary-foreground: oklch(0.2 0 0);       
+  --primary-glow: oklch(0.8 0.14 90)
 }
 
 .dark {
@@ -72,6 +75,9 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --primary: oklch(0.86 0.12 90);
+  --primary-foreground: oklch(0.2 0 0);
+  --primary-glow: oklch(0.8 0.14 90);
 }
 
 @theme inline {
@@ -120,4 +126,28 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+  /* hero hijau/kuning—pilih salah satu. Versi pakai var (ikut tema): */
+  .hero-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary-glow)
+    );
+  }
+
+  /* Section kuning hangat untuk CTA */
+  .warm-gradient {
+    background: linear-gradient(
+      180deg,
+      oklch(0.95 0.03 95) 0%,
+      oklch(0.89 0.09 95) 100%
+    );
+  }
+
+  .shadow-soft { box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+  .transition-smooth { transition: all .2s ease-in-out; }
+  .hover-lift:hover { transform: translateY(-2px); }
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { MapPin, Phone, Mail, Instagram, Facebook, Youtube } from 'lucide-react';
@@ -32,7 +32,7 @@ export const Footer = () => {
                 { name: 'Pengumuman', href: '/pengumuman' },
                 { name: 'Galeri', href: '/galeri' }
               ].map((link) => (
-                <Link key={link.name} to={link.href}>
+                <Link key={link.name} href={link.href}>
                   <Button variant="ghost" size="sm" className="p-0 h-auto font-normal text-muted-foreground hover:text-foreground">
                     {link.name}
                   </Button>
@@ -51,7 +51,7 @@ export const Footer = () => {
                 { name: 'Beasiswa', href: '/pengumuman' },
                 { name: 'Donasi', href: '/donasi' }
               ].map((link) => (
-                <Link key={link.name} to={link.href}>
+                <Link key={link.name} href={link.href}>
                   <Button variant="ghost" size="sm" className="p-0 h-auto font-normal text-muted-foreground hover:text-foreground">
                     {link.name}
                   </Button>

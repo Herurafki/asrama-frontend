@@ -1,8 +1,7 @@
 import { Pengumuman, Album, Gambar, Berita } from '@/types';
 
-const API_BASE_URL = (import.meta as any).env.VITE_API_BASE_URL || 'https://localhost:8000/api';
-const USE_MOCK = (import.meta as any).env.VITE_USE_MOCK === 'true' || true;
-
+const API_BASE_URL =  process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000/api";
+const USE_MOCK = (process.env.NEXT_PUBLIC_USE_MOCK ?? "false") === "true";
 // Mock data
 const mockPengumuman: Pengumuman[] = [
   {
