@@ -1,7 +1,8 @@
 import { Pengumuman, Album, Gambar, Berita } from '@/types';
 
-const API_BASE_URL =  process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000/api";
-const USE_MOCK = (process.env.NEXT_PUBLIC_USE_MOCK ?? "false") === "true";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000/api';
+const USE_MOCK = process.env.NEXT_PUBLIC_USE_MOCK === 'true' || true; // Default to mock for demo
+
 // Mock data
 const mockPengumuman: Pengumuman[] = [
   {
@@ -63,6 +64,7 @@ const mockBerita: Berita[] = [
     cover: "/berita/tahfidz-juara.jpg",
     published_at: "2024-03-10T00:00:00Z",
     status: "publish",
+    cover_url: "/berita/tahfidz-juara.jpg",
     author: { id: 1, nama: "Admin Asrama" },
     created_at: "2024-03-10T00:00:00Z", 
     updated_at: "2024-03-10T00:00:00Z"
@@ -70,24 +72,24 @@ const mockBerita: Berita[] = [
 ];
 
 // API functions
-export const fetchPengumuman = async (): Promise<Pengumuman[]> => {
-  if (USE_MOCK) {
-    return new Promise(resolve => setTimeout(() => resolve(mockPengumuman), 500));
+export const fetchPengumuman = async () => {
+  const response = await fetch(`${API_BASE_URL}/pengumuman`, {
+    next: { revalidate: 60 }, // cache 1 menit (opsional)
+  });
+
+  if (!response.ok) {
+    throw new Error('Gagal mengambil data pengumuman');
   }
-  
-  const response = await fetch(`${API_BASE_URL}/pengumuman`);
-  if (!response.ok) throw new Error('Failed to fetch pengumuman');
-  return response.json();
+
+  const data = await response.json();
+
+  // Laravel kamu mengembalikan array langsung (bukan { data: [] })
+  return Array.isArray(data) ? data : data.data;
 };
 
-export const fetchPengumumanBySlug = async (slug: string): Promise<Pengumuman | null> => {
-  if (USE_MOCK) {
-    const found = mockPengumuman.find(p => p.slug === slug);
-    return new Promise(resolve => setTimeout(() => resolve(found || null), 300));
-  }
-  
+export const fetchPengumumanBySlug = async (slug: string) => {
   const response = await fetch(`${API_BASE_URL}/pengumuman/${slug}`);
-  if (!response.ok) return null;
+  if (!response.ok) throw new Error('Gagal mengambil detail pengumuman');
   return response.json();
 };
 
@@ -102,11 +104,13 @@ export const fetchAlbums = async (): Promise<Album[]> => {
 };
 
 export const fetchBerita = async (): Promise<Berita[]> => {
-  if (USE_MOCK) {
-    return new Promise(resolve => setTimeout(() => resolve(mockBerita), 600));
-  }
-  
   const response = await fetch(`${API_BASE_URL}/berita`);
-  if (!response.ok) throw new Error('Failed to fetch berita');
+  if (!response.ok) throw new Error('Gagal mengambil berita');
+  return response.json();
+};
+
+export const fetchBeritaBySlug = async (slug: string): Promise<Berita> => {
+  const response = await fetch(`${API_BASE_URL}/berita/${slug}`);
+  if (!response.ok) throw new Error('Gagal mengambil detail berita');
   return response.json();
 };

@@ -1,19 +1,26 @@
+// components/homepage/HeroSection.tsx
+
+// --- KODE INI SUDAH DISESUAIKAN UNTUK NEXT.JS ---
+
 import { Button } from '@/components/ui/button';
-import Link from "next/link";
+import Link from 'next/link'; // DIUBAH: dari 'react-router-dom' ke 'next/link'
+import Image from 'next/image'; // DIUBAH: dari 'img' ke 'next/image'
 import { ArrowRight, Heart } from 'lucide-react';
 import { siteInfo } from '@/content/site';
-import Image from "next/image";
-import heroImage from '@/assets/hero-asrama.jpg';
 
 export const HeroSection = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
+        {/* DIUBAH: Menggunakan next/image untuk performa lebih baik */}
         <Image 
-          src={heroImage}
+          // Ini akan mengambil gambar dari folder 'public/hero-asrama.jpg'
+          src="/hero-asrama.jpg"
           alt="Asrama Nurul Hikmah - Lingkungan Islami yang Kondusif"
-          className="w-full h-full object-cover"
+          className="object-cover"
+          fill // Otomatis mengisi div induk
+          priority // Memuat gambar ini secepatnya
         />
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
@@ -23,6 +30,7 @@ export const HeroSection = () => {
         <div className="max-w-4xl mx-auto space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
             Selamat Datang di <br />
+            {/* Ini akan otomatis berfungsi karena globals.css sudah benar */}
             <span className="hero-gradient bg-clip-text text-transparent">
               {siteInfo.nama}
             </span>
@@ -34,6 +42,7 @@ export const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
             <Button variant="hero" size="lg" asChild className="min-w-[200px]">
+              {/* DIUBAH: "to" menjadi "href" */}
               <Link href="/tentang">
                 Tentang Asrama
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -41,6 +50,7 @@ export const HeroSection = () => {
             </Button>
             
             <Button variant="donation" size="lg" asChild className="min-w-[200px]">
+              {/* DIUBAH: "to" menjadi "href" */}
               <Link href="/donasi">
                 <Heart className="mr-2 h-5 w-5" />
                 Donasi Sekarang
@@ -48,7 +58,7 @@ export const HeroSection = () => {
             </Button>
           </div>
 
-          {/* Stats Preview */}
+          {/* Stats Preview (Ini yang hilang di versi 'jelek') */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 max-w-2xl mx-auto">
             <div className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-accent">245+</div>

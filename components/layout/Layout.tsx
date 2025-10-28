@@ -41,7 +41,7 @@ export const Layout = ({
           <meta name="twitter:image" content={ogImage} />
           
           {/* Additional SEO */}
-          <link rel="canonical" href={window.location.href} />
+          
           <meta name="robots" content="index, follow" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Helmet>

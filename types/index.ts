@@ -36,6 +36,7 @@ export type Berita = {
   ringkasan: string;
   isi: string;
   cover: string | null;
+  cover_url: string;
   published_at: string; // ISO
   status: "draft" | "publish";
   author?: { id: number; nama: string } | null;

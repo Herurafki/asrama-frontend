@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogIn } from 'lucide-react'; // Import LogIn icon
 import { siteInfo } from '@/content/site';
 
 const navItems = [
@@ -44,58 +44,85 @@ export const Navigation = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <Link key={item.name} href={item.href}>
-                <Button
-                  variant={isActive(item.href) ? "default" : "ghost"}
-                  size="sm"
-                  className="transition-smooth hover-lift"
-                >
-                  {item.name}
+          {/* Desktop Navigation & Login Button */}
+          <div className="hidden lg:flex items-center">
+            <div className="flex items-center space-x-1">
+                {navItems.map((item) => (
+                <Link key={item.name} href={item.href}>
+                    <Button
+                    variant={isActive(item.href) ? "default" : "ghost"}
+                    size="sm"
+                    className="transition-smooth hover-lift"
+                    >
+                    {item.name}
+                    </Button>
+                </Link>
+                ))}
+            </div>
+
+            {/* Separator */}
+            <div className="h-6 w-px bg-border mx-3"></div>
+
+            {/* Login Button */}
+            <Link href="/auth/login">
+                <Button size="sm" className="hero-gradient text-white hover:opacity-90 transition-opacity">
+                    <LogIn className="mr-2 h-4 w-4" />
+                    Login
                 </Button>
-              </Link>
-            ))}
+            </Link>
           </div>
 
-          {/* Mobile Menu */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-72">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold">Menu Navigasi</h2>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <X className="h-5 w-5" />
+          {/* Mobile Menu Trigger */}
+          <div className="lg:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle navigation menu</span>
                 </Button>
-              </div>
-              <div className="flex flex-col space-y-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
+              </SheetTrigger>
+              <SheetContent side="right" className="w-72">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-lg font-semibold">Menu Navigasi</h2>
+                  <Button 
+                    variant="ghost" 
+                    size="icon"
                     onClick={() => setIsOpen(false)}
                   >
-                    <Button
-                      variant={isActive(item.href) ? "default" : "ghost"}
-                      className="w-full justify-start transition-smooth"
+                    <X className="h-5 w-5" />
+                  </Button>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
                     >
-                      {item.name}
-                    </Button>
-                  </Link>
-                ))}
-              </div>
-            </SheetContent>
-          </Sheet>
+                      <Button
+                        variant={isActive(item.href) ? "default" : "ghost"}
+                        className="w-full justify-start transition-smooth"
+                      >
+                        {item.name}
+                      </Button>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Mobile Login Button Section */}
+                <div className="border-t my-4"></div>
+                <div className="pt-2">
+                    <Link href="/auth/login" onClick={() => setIsOpen(false)}>
+                        <Button className="w-full justify-center hero-gradient text-white">
+                            <LogIn className="mr-2 h-5 w-5" />
+                            Login
+                        </Button>
+                    </Link>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
         </div>
       </div>
     </nav>

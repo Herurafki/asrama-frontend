@@ -14,14 +14,49 @@ import { SidebarTrigger } from "@/components/ui/sidebar"
 import { GraduationCap } from "lucide-react"
 import { useState, useEffect } from "react"
 
+type CurrentUser = {
+  id: number
+  name: string
+  email?: string
+  avatar_url?: string | null
+}
+
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
+
 export function Navbar() {
   const [theme, setTheme] = useState<"light" | "dark">("light")
   const [searchQuery, setSearchQuery] = useState("")
+  const [user, setUser] = useState<CurrentUser | null>(null)
+  const [loadingUser, setLoadingUser] = useState(true)
 
   useEffect(() => {
     const savedTheme = (localStorage.getItem("theme") as "light" | "dark") || "light"
     setTheme(savedTheme)
     document.documentElement.classList.toggle("dark", savedTheme === "dark")
+  }, [])
+
+  useEffect(() => {
+    const fetchMe = async () => {
+      try {
+        const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null
+        const res = await fetch(`${API_BASE}/api/me`, {
+          method: "GET",
+          // Kalau pakai Sanctum (cookie-based), penting:
+          credentials: "include",
+          headers: token
+            ? { Authorization: `Bearer ${token}` } // kalau pakai JWT
+            : {},
+        })
+        if (!res.ok) throw new Error("Unauthenticated")
+        const data: CurrentUser = await res.json()
+        setUser(data)
+      } catch (err) {
+        setUser(null)
+      } finally {
+        setLoadingUser(false)
+      }
+    }
+    fetchMe()
   }, [])
 
   const toggleTheme = () => {
@@ -32,9 +67,12 @@ export function Navbar() {
   }
 
   const handleLogout = () => {
-    // TODO: Implement proper logout logic
+    // Optional: hit API logout, hapus token lokal kalau pakai JWT
+    localStorage.removeItem("access_token")
     window.location.href = "/auth/login"
   }
+
+  const displayName = loadingUser ? "Memuat..." : (user?.name ?? "Tamu")
 
   return (
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
@@ -64,10 +102,15 @@ export function Navbar() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="flex items-center space-x-2 h-9">
-              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <User className="h-4 w-4 text-primary" />
+              <div className="h-8 w-8 rounded-full bg-primary/10 overflow-hidden flex items-center justify-center">
+                {user?.avatar_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={user.avatar_url} alt={user.name} className="h-8 w-8 object-cover" />
+                ) : (
+                  <User className="h-4 w-4 text-primary" />
+                )}
               </div>
-              <span className="hidden md:block text-sm font-medium">Ahmad Budi</span>
+              <span className="hidden md:block text-sm font-medium">{displayName}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
