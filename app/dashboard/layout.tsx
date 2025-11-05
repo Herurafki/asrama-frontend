@@ -1,5 +1,6 @@
 "use client"
 
+import "@/styles/globals-dashboard.css";
 import type React from "react"
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/layout/app-sidebar"
@@ -11,12 +12,16 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <Navbar />
-        <main className="flex-1 overflow-auto">{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
+    <html lang="id">
+      <body className="dashboard">
+        <SidebarProvider>
+          <AppSidebar />
+          <SidebarInset>
+            <Navbar />
+            <main className="flex-1 overflow-auto">{children}</main>
+          </SidebarInset>
+        </SidebarProvider>
+      </body>
+    </html>
   )
 }
