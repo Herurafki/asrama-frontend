@@ -3,56 +3,57 @@
 // --- KODE INI BISA LANGSUNG DISALIN ---
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, Home, Calendar, Award } from 'lucide-react';
+import { Users, Award, GraduationCap, CupSoda } from 'lucide-react';
 import { stats } from '@/content/site';
 
 export const StatsSection = () => {
   const statsData = [
     {
       icon: Users,
-      label: 'Santri Aktif',
+      label: 'Anak Asuh',
       value: stats.siswaAktif,
       suffix: '+',
-      description: 'Santri dari berbagai daerah'
+      description: 'Tinggal dan belajar di asrama'
     },
     {
-      icon: Home,
-      label: 'Kamar Tersedia',
+      icon: GraduationCap,
+      label: 'Alumni',
       value: stats.kamar,
       suffix: '',
-      description: 'Kamar nyaman ber-AC'
+      description: 'Telah Menyelesaikan Pendidikan Dasar'
     },
     {
-      icon: Calendar,
-      label: 'Kegiatan per Tahun',
+      icon: CupSoda,
+      label: 'Porsi Makan',
       value: stats.kegiatanTahun,
       suffix: '+',
-      description: 'Program pembinaan rutin'
+      description: 'Disediakan Setiap Bulan'
     },
     {
       icon: Award,
-      label: 'Prestasi Diraih',
-      value: 45, // Kamu bisa ganti ini ke stats.prestasi jika ada
-      suffix: '+',
-      description: 'Berbagai kompetisi'
+      label: 'Dana Langsung',
+      value: 85, // Kamu bisa ganti ini ke stats.prestasi jika ada
+      suffix: '%',
+      description: 'Transparansi & Amanah'
     }
   ];
 
   return (
     <section className="py-16 bg-muted/30">
-      <div className="container mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Asrama dalam Angka
+            Dampak Nyata dari Kebaikan Anda
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Bukti nyata komitmen kami dalam memberikan pendidikan berkualitas dan pembinaan karakter terbaik
+          Setiap dukungan yang Anda berikan membantu kami menjaga harapan anak-anak di asrama ini.
+          Angka-angka berikut adalah bukti bahwa kepedulian kecil bisa menciptakan perubahan besar.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {statsData.map((stat, index) => (
-            <Card key={index} className="hover-lift bg-background/80 backdrop-blur-sm">
+            <Card key={index} className="hover-lift group border-gray-200 shadow-xl">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 hero-gradient rounded-lg flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="h-6 w-6 text-white" />

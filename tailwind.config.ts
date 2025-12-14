@@ -74,8 +74,19 @@ const config: Config = {
         },
       },
     },
+    fontFamily: {
+      sans: ["Inter", "sans-serif"],
+      serif: ["Georgia", "serif"],
+      mono: ["Menlo", "monospace"],
+    },
+    boxShadow: {
+      card: "0 4px 12px rgba(0, 0, 0, 0.1)",
+      glow: "0 0 12px rgba(59, 130, 246, 0.7)",
+    },
   },
-  plugins: [],
+  plugins: [
+    require("tw-animate"),
+  ],
 };
 
 export default config;

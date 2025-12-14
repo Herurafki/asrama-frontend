@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import { Search, Calendar, ArrowRight } from 'lucide-react';
+import { Search, Calendar, ArrowRight, Megaphone } from 'lucide-react';
 import useSWR from 'swr';
 import { fetchPengumuman } from '@/lib/data';
 import { format } from 'date-fns';
@@ -35,7 +35,7 @@ export default function PengumumanPage() {
       return matchesSearch && endDate && now > endDate;
     }
 
-    return matchesSearch && item.status === 'publish';
+    return matchesSearch && item.status === 'publik';
   })?.sort((a : Pengumuman, b: Pengumuman) => {
     const dateA = new Date(a.created_at);
     const dateB = new Date(b.created_at);
@@ -53,19 +53,28 @@ export default function PengumumanPage() {
   }
 
   return (
-    <div className="py-16">
-      <div className="container mx-auto px-4">
+    <>
+      
         {/* Header */}
-        <div className="text-center mb-12">
-          <Badge variant="outline" className="mb-4">
-            Pengumuman
-          </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Pengumuman Terbaru</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Dapatkan informasi terkini seputar kegiatan, program, dan pengumuman penting dari Asrama Nurul Hikmah.
-          </p>
-        </div>
+        <section className="py-16 hero-gradient text-white">
+          <div className="container mx-auto px-4 text-center">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                <Megaphone className="h-6 w-6 text-white" />
+              </div>
+              <Badge variant="secondary" className="text-primary">Informasi Terbaru</Badge>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Pengumuman & Informasi
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Dapatkan informasi terbaru mengenai kegiatan, pendaftaran, dan berbagai program di asrama
+            </p>
+          </div>
+        </section>
 
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <section className="py-16">
         {/* Filters */}
         <div className="flex flex-col md:flex-row gap-4 mb-8">
           <div className="relative flex-1">
@@ -171,7 +180,8 @@ export default function PengumumanPage() {
             )}
           </>
         )}
+        </section>
       </div>
-    </div>
+    </>
   );
 }

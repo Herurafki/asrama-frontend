@@ -5,14 +5,19 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import api from "@/lib/api"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/context/AuthContext"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Eye, EyeOff, GraduationCap } from "lucide-react"
+import { Eye, EyeOff } from "lucide-react"
+import Image from "next/image"
 
 export default function LoginPage() {
+  const router = useRouter()
+  const { login } = useAuth()
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
     email: "",
@@ -32,8 +37,8 @@ export default function LoginPage() {
         password: formData.password,
       })
 
-      console.log("Login success:", response.data)
-      window.location.href = "/dashboard"
+      await login(response.data.token)
+      router.push("/dashboard")
       localStorage.setItem("auth_token", response.data.token)
     } catch (err: any) {
       setError(
@@ -51,19 +56,18 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex justify-center">
-            <div className="bg-primary rounded-full p-3">
-              <GraduationCap className="h-8 w-8 text-primary-foreground" />
+            <div className="rounded-full p-3">
+              <Image src="/logo.png" alt="Logo" width={60} height={60}></Image>
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Sistem Manajemen Asrama</h1>
-          <p className="text-muted-foreground">Masuk ke akun Anda</p>
+          <h1 className="text-primary text-2xl font-bold text-foreground">Asrama MIS Al Falah</h1>
+          <p className="text-muted-foreground">Silahkan masuk ke akun anda untuk melakukan pendaftaran penghuni asrama dan kontrol orang tua.</p>
         </div>
 
         {/* Login Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Masuk</CardTitle>
-            <CardDescription>Masukkan email dan password untuk mengakses sistem</CardDescription>
+            <CardTitle className="text-center text-xl">Sign In</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -115,7 +119,7 @@ export default function LoginPage() {
 
             <div className="mt-4 text-center text-sm">
               <span className="text-muted-foreground">Belum punya akun? </span>
-              <Link href="/auth/register" className="text-accent hover:underline">
+              <Link href="/auth/register" className="text-primary hover:underline">
                 Daftar di sini
               </Link>
             </div>

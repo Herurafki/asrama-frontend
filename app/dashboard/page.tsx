@@ -27,6 +27,17 @@ type Permit = {
   created_at?: string
   updated_at?: string
 }
+type Announcement = {
+  id: number
+  judul: string
+  slug: string
+  isi: string
+  start_at: string | null
+  end_at: string | null
+  status: "orangtua"
+  created_at: string
+  updated_at: string
+}
 
 function normalizeStatus(s?: string): "pending" | "disetujui" | "ditolak" {
   const x = (s || "").toLowerCase()
@@ -83,6 +94,7 @@ function StatusBadge({ status }: { status?: string }) {
 export default function DashboardPage() {
   const [students, setStudents] = useState<Student[]>([])
   const [permits, setPermits] = useState<Permit[]>([])
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
@@ -98,9 +110,13 @@ export default function DashboardPage() {
           axios.get(API("/api/students"), { headers: { Authorization: `Bearer ${token}` } }),
           axios.get(API("/api/perizinan"), { headers: { Authorization: `Bearer ${token}` } }),
         ])
+        const [annRes] = await Promise.all([
+          axios.get(API("/api/pengumuman"), { headers: { Authorization: `Bearer ${token}` } }),
+        ])
 
         const siswaList = (siswaRes?.data?.data ?? siswaRes?.data ?? []) as any[]
         const izinList = (izinRes?.data?.data ?? izinRes?.data ?? []) as any[]
+        const annList = (annRes?.data?.data ?? annRes?.data ?? []) as any[]
 
         if (!ignore) {
           setStudents(
@@ -112,6 +128,7 @@ export default function DashboardPage() {
             })),
           )
           setPermits(izinList as Permit[])
+          setAnnouncements((annList as Announcement[]).filter(a => a.status === "orangtua"))
         }
       } catch (e: any) {
         if (!ignore) setError(e?.response?.data?.message || e?.message || "Gagal memuat data")
@@ -131,6 +148,8 @@ export default function DashboardPage() {
   const approvedThisMonth = permits.filter(
     (p) => normalizeStatus(p.status) === "disetujui" && inThisMonth(p.updated_at || p.created_at),
   ).length
+
+ 
 
   // ===== Recent activity (ambil 6 terbaru) =====
   const recent = useMemo(() => {
@@ -237,9 +256,19 @@ export default function DashboardPage() {
               <CardDescription>Informasi penting untuk orang tua</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Announcement title="Jadwal Kunjungan" text="Kunjungan orang tua setiap hari Minggu pukul 09.00–16.00 WIB." />
-              <Announcement title="Libur Semester" text="Libur semester dimulai 15 Desember 2025. Siapkan penjemputan." />
-              <Announcement title="Pembayaran SPP" text="Jatuh tempo SPP bulan ini pada tanggal 10. Mohon diselesaikan tepat waktu." />
+              {loading ? (
+                <p className="text-sm text-muted-foreground">Memuat...</p>
+              ) : announcements.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Belum ada pengumuman</p>
+              ) : (
+                announcements.map((a) => (
+                  <Announcement
+                    key={a.id}
+                    title={a.judul}
+                    text={a.isi}
+                  />
+                ))
+              )}
             </CardContent>
           </Card>
 
@@ -276,7 +305,7 @@ function StatCard({
 }) {
   return (
     <Card className="relative overflow-hidden">
-      <div className="absolute inset-x-0 -top-6 h-16 bg-gradient-to-b from-accent/20 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 -top-6 h-16 bg-linear-to-b from-accent/20 to-transparent pointer-events-none" />
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xs sm:text-sm font-medium">{title}</CardTitle>
         {icon}

@@ -10,8 +10,8 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Eye, EyeOff, GraduationCap } from "lucide-react" 
+import { Eye, EyeOff } from "lucide-react" 
+import Image from "next/image"
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -64,18 +64,18 @@ export default function RegisterPage() {
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex justify-center">
-            <div className="bg-primary rounded-full p-3">
-              <GraduationCap className="h-8 w-8 text-primary-foreground" />
+            <div className="rounded-full p-3">
+              <Image src="/logo.png" alt="Logo" width={60} height={60}></Image>
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-foreground">Sistem Manajemen Asrama</h1>
-          <p className="text-muted-foreground">Buat akun baru</p>
+          <h1 className="text-primary text-2xl font-bold text-foreground">Asrama MIS Al Falah</h1>
+          <p className="text-muted-foreground">Silahkan buat akun untuk dapat melakukan pendaftaran dan mengakses kontrol orang tua</p>
         </div>
 
         {/* Register Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Daftar</CardTitle>
+            <CardTitle className="text-center text-xl">Register</CardTitle>
             <CardDescription>Lengkapi form di bawah untuk membuat akun baru</CardDescription>
           </CardHeader>
           <CardContent>
@@ -179,7 +179,7 @@ export default function RegisterPage() {
 
             <div className="mt-4 text-center text-sm">
               <span className="text-muted-foreground">Sudah punya akun? </span>
-              <Link href="/auth/login" className="text-accent hover:underline">
+              <Link href="/auth/login" className="text-primary hover:underline">
                 Masuk di sini
               </Link>
             </div>

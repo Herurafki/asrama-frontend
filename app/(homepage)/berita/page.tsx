@@ -82,16 +82,22 @@ export default function BeritaPage() {
   const { data: berita, error, isLoading } = useSWR<Berita[]>('berita', fetchBerita);
 
   return (
-    <div className="py-16">
-      <div className="container mx-auto px-4">
+    <>
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Berita & Artikel</h1>
-          <p className="text-xl text-muted-foreground">
-            Update terbaru dan artikel menarik seputar kegiatan Asrama Nurul Hikmah
-          </p>
-        </div>
+        <section className='py-16 hero-gradient text-white'>
+          <div className="text-center max-w-3xl mx-auto mb-12">
+          <div className="flex items-center justify-center mb-4">
+              <Badge variant="secondary" className="text-primary">Berita Terbaru</Badge>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Berita & Artikel</h1>
+            <p className="text-xl text-white/90">
+              Update terbaru dan artikel menarik seputar kegiatan Asrama MIS Quran Al Falah
+            </p>
+          </div>
+        </section>
 
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <div className='py-16'>
         {/* Content */}
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -122,7 +128,8 @@ export default function BeritaPage() {
             </CardContent>
           </Card>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

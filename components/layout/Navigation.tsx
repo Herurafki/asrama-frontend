@@ -4,14 +4,14 @@ import { useState } from 'react';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X, LogIn } from 'lucide-react'; // Import LogIn icon
 import { siteInfo } from '@/content/site';
+import Image from 'next/image';
 
 const navItems = [
   { name: 'Beranda', href: '/' },
   { name: 'Tentang', href: '/tentang' },
-  { name: 'Fasilitas', href: '/fasilitas' },
   { name: 'Pengumuman', href: '/pengumuman' },
   { name: 'Galeri', href: '/galeri' },
   { name: 'Berita', href: '/berita' },
@@ -30,27 +30,27 @@ export const Navigation = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b shadow-soft">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-gray-200 shadow-soft">
+      <div className="w-full bg-white">       {/* Full width */}
+      <div className="max-w-[1400px] mx-auto px-6">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 hero-gradient rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">NH</span>
-            </div>
+              <Image src="/logo.png" alt="Logo" width={30} height={30}></Image>
             <div>
               <h1 className="font-bold text-foreground">{siteInfo.nama}</h1>
-              <p className="text-xs text-muted-foreground hidden sm:block">Asrama Terpadu Islami</p>
+              {/* <p className="text-xs text-muted-foreground hidden sm:block">Asrama Terpadu Islami</p> */}
             </div>
           </Link>
 
           {/* Desktop Navigation & Login Button */}
-          <div className="hidden lg:flex items-center">
+          <div className="hidden lg:flex items-center space-x-1">
             <div className="flex items-center space-x-1">
                 {navItems.map((item) => (
                 <Link key={item.name} href={item.href}>
                     <Button
-                    variant={isActive(item.href) ? "default" : "ghost"}
+                    variant={isActive(item.href) ? "hero" : "ghost"}
                     size="sm"
                     className="transition-smooth hover-lift"
                     >
@@ -76,55 +76,64 @@ export const Navigation = () => {
           <div className="lg:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Toggle navigation menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-72">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-lg font-semibold">Menu Navigasi</h2>
-                  <Button 
-                    variant="ghost" 
-                    size="icon"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <X className="h-5 w-5" />
+                <div className='flex justify-end'>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Toggle navigation menu</span>
                   </Button>
                 </div>
-                <div className="flex flex-col space-y-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <Button
-                        variant={isActive(item.href) ? "default" : "ghost"}
-                        className="w-full justify-start transition-smooth"
-                      >
-                        {item.name}
-                      </Button>
-                    </Link>
-                  ))}
+              </SheetTrigger>
+              <SheetContent 
+              side="right" 
+              className="w-72 bg-white" /* <-- FIX 1: Tambahkan bg-background */
+            >
+              <SheetHeader>
+                <div className="flex items-center justify-between mb-6">
+                  
+                  {/* FIX 3: Gunakan SheetTitle, bukan h2 */}
+                  <SheetTitle className="text-lg font-semibold">
+                    Menu Navigasi
+                  </SheetTitle>
+        
                 </div>
+              </SheetHeader> {/* <-- FIX 2: Tutup Header di sini */}
 
-                {/* Mobile Login Button Section */}
-                <div className="border-t my-4"></div>
-                <div className="pt-2">
-                    <Link href="/auth/login" onClick={() => setIsOpen(false)}>
-                        <Button className="w-full justify-center hero-gradient text-white">
-                            <LogIn className="mr-2 h-5 w-5" />
-                            Login
-                        </Button>
-                    </Link>
-                </div>
-              </SheetContent>
+              {/* FIX 2: Pindahkan semua konten ini KELUAR dari SheetHeader */}
+              <div className="flex flex-col space-y-2">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Button
+                      variant={isActive(item.href) ? "default" : "ghost"}
+                      className="w-full justify-start transition-smooth"
+                    >
+                      {item.name}
+                    </Button>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Mobile Login Button Section (juga di luar header) */}
+              <div className="border-t my-4"></div>
+              <div className="pt-2">
+                  <Link href="/auth/login" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full justify-center hero-gradient text-white">
+                          <LogIn className="mr-2 h-5 w-5" />
+                          Login
+                      </Button>
+                  </Link>
+              </div>
+            </SheetContent>
             </Sheet>
           </div>
-
         </div>
       </div>
+      </div>
+    </div>
     </nav>
-  );
+  )
+  ;
 };

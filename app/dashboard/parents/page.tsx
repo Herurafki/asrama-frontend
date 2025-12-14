@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Users } from "lucide-react"
+import { toast } from "sonner"
 
 /** --- Endpoint sederhana ---
  * Pastikan .env.local: NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
@@ -50,8 +50,6 @@ const sanitize = (raw: any): ParentData => ({
 export default function ParentPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
   const [data, setData] = useState<ParentData>({
     nama_ayah: "", pendidikan_ayah: "", pekerjaan_ayah: "",
     nama_ibu: "", pendidikan_ibu: "", pekerjaan_ibu: "",
@@ -78,7 +76,7 @@ export default function ParentPage() {
   // Simpan (POST /api/orangtua) — upsert
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true); setError(""); setSuccess("")
+    setIsLoading(true); 
     try {
       const token = localStorage.getItem("auth_token")
       const fd = new FormData()
@@ -88,9 +86,9 @@ export default function ParentPage() {
       await axios.post(ENDPOINT_PARENT, fd, {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
       })
-      setSuccess("Data orang tua/wali tersimpan.")
+      toast.success("Data orang tua/wali tersimpan.")
     } catch (err: any) {
-      setError(axios.isAxiosError(err) ? (err.response?.data?.message || "Gagal menyimpan") : "Unexpected error")
+      toast.error(axios.isAxiosError(err) ? (err.response?.data?.message || "Gagal menyimpan") : "Unexpected error")
     } finally { setIsLoading(false) }
   }
 
@@ -100,9 +98,6 @@ export default function ParentPage() {
         <h1 className="text-2xl sm:text-3xl font-bold">Data Orang Tua/Wali</h1>
         <p className="text-sm text-muted-foreground">Isi atau ubah profil orang tua/wali</p>
       </div>
-
-      {error   && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
-      {success && <Alert className="border-green-200 bg-green-50 text-green-800"><AlertDescription>{success}</AlertDescription></Alert>}
 
       <form
         onSubmit={onSubmit}
@@ -119,7 +114,6 @@ export default function ParentPage() {
             <CardTitle className="flex items-center gap-2">
               <Users className="h-5 w-5" /> Data Orang Tua/Wali
             </CardTitle>
-            <CardDescription>Semua kolom opsional; isi yang kamu punya.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Ayah */}

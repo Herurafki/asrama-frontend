@@ -1,11 +1,27 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api", // ganti sesuai backend Laravel kamu
+    baseURL: "http://127.0.0.1:8000/api",
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-  })
-  
-  export default api
+})
+
+api.interceptors.request.use(
+  (config) => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("auth_token"); // Ambil token
+ 
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+      return config; 
+  },
+  (error) => {
+     return Promise.reject(error);
+   }
+);
+
+export default api;

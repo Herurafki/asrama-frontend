@@ -1,12 +1,12 @@
 import { SiteInfo, Stats } from '@/types';
 
 export const siteInfo: SiteInfo = {
-  nama: "Asrama Nurul Hikmah",
-  deskripsi: "Asrama terpadu yang mengembangkan akhlak mulia, prestasi akademik, dan kemandirian santri dalam lingkungan Islami yang kondusif",
-  alamat: "Jl. Pendidikan No. 123, Kota Santri, Jawa Timur 65432",
-  telepon: "+62 341 123456",
+  nama: "Asrama MIS Qur'an Al Falah",
+  deskripsi: "Bersama kami mendidik dan merawat anak-anak agar tetap bisa tumbuh dengan kasih sayang, pendidikan, dan harapan.",
+  alamat: "Jl. Mekah RT 03 RW 06, Kec. Koto Tangah, Kota Padang, Sumatera Barat 25175",
+  telepon: "+628 238-866-5499",
   email: "info@asramanurul.sch.id",
-  whatsapp: "+62 812-3456-7890",
+  whatsapp: "+628 238-866-5499",
   sosialMedia: {
     instagram: "https://instagram.com/asramanurul",
     facebook: "https://facebook.com/asramanurul",
@@ -14,15 +14,15 @@ export const siteInfo: SiteInfo = {
   },
   jamKunjung: "Sabtu-Minggu: 08.00-16.00 WIB",
   koordinat: {
-    lat: -7.9344,
-    lng: 112.6181
+    lat: -0.8660,
+    lng: 100.3744
   }
 };
 
 export const stats: Stats = {
-  siswaAktif: 245,
-  kamar: 48,
-  kegiatanTahun: 125
+  siswaAktif: 48,
+  kamar: 130,
+  kegiatanTahun: 150
 };
 
 export const visiMisi = {

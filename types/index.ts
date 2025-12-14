@@ -6,7 +6,7 @@ export type Pengumuman = {
   start_at: string | null; // ISO
   end_at: string | null;   // ISO
   pinned: boolean;
-  status: "draft" | "publish" | "archived";
+  status: "publik";
   created_at: string;
   updated_at: string;
 };
@@ -14,19 +14,20 @@ export type Pengumuman = {
 export type Gambar = {
   id: number;
   nama: string;
-  path: string; // absolute or relative URL
-  created_at?: string;
+  url: string;
 };
 
 export type Album = {
   id: number;
   judul: string;
   slug: string;
-  cover: string | null; // URL
+  cover: string | null;
+  cover_url: string;
   deskripsi?: string | null;
   total_foto?: number;
   created_at: string;
   updated_at: string;
+  gambars: Gambar[];
 };
 
 export type Berita = {

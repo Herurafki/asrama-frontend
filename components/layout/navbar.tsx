@@ -3,6 +3,7 @@
 import { Search, Sun, Moon, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import api from "@/lib/api"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +12,9 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { GraduationCap } from "lucide-react"
 import { useState, useEffect } from "react"
+import Image from "next/image"
+import { useAuth } from "@/context/AuthContext"
 
 type CurrentUser = {
   id: number
@@ -21,13 +23,13 @@ type CurrentUser = {
   avatar_url?: string | null
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
 
 export function Navbar() {
   const [theme, setTheme] = useState<"light" | "dark">("light")
   const [searchQuery, setSearchQuery] = useState("")
   const [user, setUser] = useState<CurrentUser | null>(null)
   const [loadingUser, setLoadingUser] = useState(true)
+  const {logout } = useAuth()
 
   useEffect(() => {
     const savedTheme = (localStorage.getItem("theme") as "light" | "dark") || "light"
@@ -36,28 +38,19 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const token = typeof window !== "undefined" ? localStorage.getItem("access_token") : null
-        const res = await fetch(`${API_BASE}/api/me`, {
-          method: "GET",
-          // Kalau pakai Sanctum (cookie-based), penting:
-          credentials: "include",
-          headers: token
-            ? { Authorization: `Bearer ${token}` } // kalau pakai JWT
-            : {},
-        })
-        if (!res.ok) throw new Error("Unauthenticated")
-        const data: CurrentUser = await res.json()
-        setUser(data)
-      } catch (err) {
-        setUser(null)
-      } finally {
-        setLoadingUser(false)
+       const fetchMe = async () => {
+         try {
+          const response = await api.get("/me") 
+          setUser(response.data)
+        } catch (err) {
+          console.error("Fetch user gagal:", err) 
+          setUser(null)
+        } finally {
+          setLoadingUser(false)
+        }
       }
-    }
-    fetchMe()
-  }, [])
+      fetchMe()
+    }, [])
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light"
@@ -67,9 +60,7 @@ export function Navbar() {
   }
 
   const handleLogout = () => {
-    // Optional: hit API logout, hapus token lokal kalau pakai JWT
-    localStorage.removeItem("access_token")
-    window.location.href = "/auth/login"
+    logout()
   }
 
   const displayName = loadingUser ? "Memuat..." : (user?.name ?? "Tamu")
@@ -78,8 +69,7 @@ export function Navbar() {
     <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
       <SidebarTrigger className="-ml-1" />
       <div className="flex items-center space-x-2">
-        <GraduationCap className="h-6 w-6 text-primary md:hidden" />
-        <span className="font-semibold md:hidden">Portal Orang Tua</span>
+        <Image src="/logo.png" alt="Logo" width={20} height={20} className="md:hidden"></Image>
       </div>
 
       <div className="flex-1 max-w-md mx-4">

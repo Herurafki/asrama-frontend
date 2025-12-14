@@ -1,16 +1,13 @@
-// components/homepage/HeroSection.tsx
-
-// --- KODE INI SUDAH DISESUAIKAN UNTUK NEXT.JS ---
 
 import { Button } from '@/components/ui/button';
-import Link from 'next/link'; // DIUBAH: dari 'react-router-dom' ke 'next/link'
-import Image from 'next/image'; // DIUBAH: dari 'img' ke 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Heart } from 'lucide-react';
 import { siteInfo } from '@/content/site';
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         {/* DIUBAH: Menggunakan next/image untuk performa lebih baik */}
@@ -59,18 +56,21 @@ export const HeroSection = () => {
           </div>
 
           {/* Stats Preview (Ini yang hilang di versi 'jelek') */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent">245+</div>
-              <div className="text-sm text-white/80">Santri Aktif</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 max-w-2xl mx-auto divide-y md:divide-y-0 md:divide-x divide-white/10">
+
+            <div className="text-center py-4 md:py-0">
+              <div className="text-3xl md:text-4xl text-accent mb-1">Iman</div>
+              <div className="text-xs tracking-widest uppercase text-white/60">Pondasi Dasar</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent">48</div>
-              <div className="text-sm text-white/80">Kamar Nyaman</div>
+
+            <div className="text-center py-4 md:py-0">
+              <div className="text-3xl md:text-4xl  text-accent mb-1">Adab</div>
+              <div className="text-xs tracking-widest uppercase text-white/60">Penyempurna Ilmu</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-accent">125+</div>
-              <div className="text-sm text-white/80">Kegiatan/Tahun</div>
+
+            <div className="text-center py-4 md:py-0">
+              <div className="text-3xl md:text-4xl  text-accent mb-1">Amal</div>
+              <div className="text-xs tracking-widest uppercase text-white/60">Bukti Nyata</div>
             </div>
           </div>
         </div>

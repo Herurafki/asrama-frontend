@@ -22,7 +22,7 @@ export const DonasiCTA = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="outline" size="lg" asChild>
+            <Button variant="outline" size="lg" className="bg-white border-gray-200" asChild>
               {/* UBAH "to" MENJADI "href" */}
               <Link href="/tentang">
                 Pelajari Lebih Lanjut

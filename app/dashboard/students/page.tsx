@@ -17,15 +17,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Search, Plus, Eye, Edit } from "lucide-react"
+import { Search, Plus, Eye } from "lucide-react"
+import { toast } from "sonner"
+import { Skeleton } from "@/components/ui/skeleton"
 
-/** =========== Endpoint builder (hindari /api dobel & URL relatif) =========== */
+/** =========== Endpoint builder =========== */
 const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
-const BASE = RAW_BASE.replace(/\/+$/,'')
+const BASE = RAW_BASE.replace(/\/+$/, "")
 const HAS_API = /\/api$/.test(BASE)
 const API_PREFIX = HAS_API ? "" : "/api"
-// SESUAIKAN: rute list siswa milik user login
-const ENDPOINT_STUDENTS = `${BASE}${API_PREFIX}/students` // contoh: /api/siswa. Ganti jika rute kamu /api/students
+const ENDPOINT_STUDENTS = `${BASE}${API_PREFIX}/students`
 
 /** ================== Types & helpers ================== */
 type ParentInfo = {
@@ -43,8 +44,9 @@ type Student = {
   tempat_lahir: string
   tanggal_lahir: string
   kelas: string
-  kamar_id?: string | number | null
-  jenis_kelamin: string // "L" | "P" | "Laki-laki" | "Perempuan"
+  nama_kamar: string | number | null
+  kamar?: { id: number; nama_kamar: string } | null
+  jenis_kelamin: string
   status_keluarga?: string
   kewarganegaraan?: string
   tgl_masuk?: string
@@ -52,13 +54,12 @@ type Student = {
   orang_tua: ParentInfo
 }
 
-// Normalisasi item dari backend → bentuk yang dipakai UI ini
 const sanitizeStudent = (raw: any): Student => {
   const jkRaw = raw?.jenis_kelamin ?? ""
   const jk =
     jkRaw === "Laki-laki" || jkRaw === "L" ? "L"
-    : jkRaw === "Perempuan" || jkRaw === "P" ? "P"
-    : String(jkRaw)
+      : jkRaw === "Perempuan" || jkRaw === "P" ? "P"
+        : String(jkRaw)
 
   return {
     id: Number(raw?.id ?? 0),
@@ -68,7 +69,8 @@ const sanitizeStudent = (raw: any): Student => {
     tempat_lahir: raw?.tempat_lahir ?? "",
     tanggal_lahir: raw?.tanggal_lahir ?? raw?.tgl_lahir ?? "",
     kelas: raw?.kelas ?? raw?.kelas_masuk ?? "",
-    kamar_id: raw?.kamar_id ?? null,
+    nama_kamar: raw?.nama_kamar ?? null,
+    kamar: raw?.kamar ?? null,
     jenis_kelamin: jk,
     status_keluarga: raw?.status_keluarga ?? "",
     kewarganegaraan: raw?.kewarganegaraan ?? "",
@@ -96,7 +98,7 @@ function initials(name: string) {
 function genderLabel(jk: string) {
   if (jk === "L" || jk === "Laki-laki") return "Laki-laki"
   if (jk === "P" || jk === "Perempuan") return "Perempuan"
-  return jk || "-"  
+  return jk || "-"
 }
 
 /** ================== Component ================== */
@@ -107,26 +109,34 @@ export default function StudentsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
-  // Fetch dari DB saat mount
   useEffect(() => {
     let ignore = false
-    ;(async () => {
+
+    const fetchStudents = async () => {
+      if (!ignore) setLoading(true)
+      
+
       try {
         const token = localStorage.getItem("auth_token")
         const res = await axios.get(ENDPOINT_STUDENTS, {
           headers: { Authorization: `Bearer ${token}` },
         })
-        // Laravel paginator: { data: [...] } — non-paginator: langsung [...]
+
         const list = res?.data?.data ?? res?.data ?? []
         const clean: Student[] = Array.isArray(list) ? list.map(sanitizeStudent) : []
         if (!ignore) setStudents(clean)
       } catch (e: any) {
-        const msg = axios.isAxiosError?.(e) ? (e.response?.data?.message || e.message) : "Gagal memuat data"
+        const msg = axios.isAxiosError(e)
+          ? e.response?.data?.message || e.message
+          : "Gagal memuat data"
         if (!ignore) setError(msg)
+        
       } finally {
         if (!ignore) setLoading(false)
       }
-    })()
+    }
+
+    fetchStudents()
     return () => { ignore = true }
   }, [])
 
@@ -151,7 +161,6 @@ export default function StudentsPage() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Anak Saya</h1>
@@ -167,18 +176,29 @@ export default function StudentsPage() {
         </div>
       </div>
 
-      {/* Error / Loading */}
+      {/* Error */}
       {error && (
         <Alert variant="destructive">
           <AlertDescription className="text-sm">{error}</AlertDescription>
         </Alert>
       )}
+
+      {/* Loading Skeleton */}
       {!error && loading && (
-        <Card>
-          <CardContent className="pt-6">
-            <div className="text-sm text-muted-foreground">Memuat data…</div>
-          </CardContent>
-        </Card>
+        <div className="grid gap-4">
+          {[1, 2, 3].map((i) => (
+            <Card key={i}>
+              <CardContent className="pt-6 flex items-center space-x-4">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="space-y-2 w-full">
+                  <Skeleton className="h-4 w-1/3" />
+                  <Skeleton className="h-3 w-2/3" />
+                  <Skeleton className="h-3 w-1/2" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       )}
 
       {/* Search */}
@@ -209,13 +229,12 @@ export default function StudentsPage() {
                     <AvatarImage src={student.foto || "/placeholder.svg"} alt={student.nama_lengkap} />
                     <AvatarFallback>{initials(student.nama_lengkap)}</AvatarFallback>
                   </Avatar>
-
                   <div className="space-y-1">
                     <h3 className="font-semibold text-foreground">{student.nama_lengkap}</h3>
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                       <span>NIS: {student.nis}</span>
                       <span>Kelas: {student.kelas || "-"}</span>
-                      <span>Kamar: {student.kamar_id ?? "-"}</span>
+                      <span>Kamar: {student.kamar?.nama_kamar ?? "-"}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Badge variant={student.jenis_kelamin === "L" ? "default" : "secondary"}>
@@ -229,7 +248,6 @@ export default function StudentsPage() {
                     </div>
                   </div>
                 </div>
-
                 <div className="flex items-center space-x-2">
                   <Dialog>
                     <DialogTrigger asChild>
@@ -243,8 +261,7 @@ export default function StudentsPage() {
                     </DialogTrigger>
                     <DialogContent className="max-w-2xl">
                       <DialogHeader>
-                        <DialogTitle>Detail Anak</DialogTitle>
-                        <DialogDescription>Informasi lengkap {student.nama_lengkap}</DialogDescription>
+                        <DialogTitle className="text-center">Detail Anak</DialogTitle>
                       </DialogHeader>
 
                       {selectedStudent && (
@@ -287,7 +304,7 @@ export default function StudentsPage() {
                                   {selectedStudent.tgl_masuk ? new Date(selectedStudent.tgl_masuk).toLocaleDateString("id-ID") : "-"}
                                 </p>
                                 <p><span className="font-medium">Kelas:</span> {selectedStudent.kelas || "-"}</p>
-                                <p><span className="font-medium">Kamar:</span> {selectedStudent.kamar_id ?? "-"}</p>
+                                <p><span className="font-medium">Kamar:</span> {selectedStudent.kamar?.nama_kamar ?? "-"}</p>
                               </div>
                             </div>
 

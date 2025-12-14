@@ -12,16 +12,25 @@ export const metadata: Metadata = {
 
 export default function PengurusPage() {
   return (
-    <div className="py-16">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Pengurus Asrama</h1>
-          <p className="text-xl text-muted-foreground">
-            Tim berpengalaman yang berkomitmen membimbing dan mengembangkan potensi santri
+    <>
+    
+      {/* Header */}
+      <section className="py-16 hero-gradient text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="flex items-center justify-center mb-4">
+            <Badge variant="secondary" className="text-primary">Pengurus</Badge>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          Pengurus Asrama
+          </h1>
+          <p className="text-xl text-white/90 max-w-2xl mx-auto">
+          Tim berpengalaman yang berkomitmen membimbing dan mengembangkan potensi santri
           </p>
         </div>
+      </section>
 
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+        <div className="py-16">
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {pengurusList.map((pengurus) => (
@@ -70,5 +79,6 @@ export default function PengurusPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

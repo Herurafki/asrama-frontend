@@ -1,4 +1,3 @@
-import '@/styles/globals-dashboard.css'
 
 export default function Authlayout(
     {
@@ -8,8 +7,8 @@ export default function Authlayout(
     }
 ) {
   return (
-    <html lang="id">
-      <body className="dashboard">{children}</body>
-    </html>
+
+      <div className="dashboard">{children}</div>
+    
   );
 }

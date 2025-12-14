@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 
 /* =============================================================== */
 /* HOMEPAGE THEME - Islamic Green & Warm Earth (Tailwind v4) */
@@ -8,9 +10,9 @@
 /* ============================ */
 /* 🎨 LIGHT MODE THEME */
 /* ============================ */
-@theme .homepage {
+@theme {
 
-  --color-background: 35 20% 98%;
+  --color-background: 0 100% 50%;
   --color-foreground: 25 25% 15%;
   --color-card: 0 0% 100%;
   --color-card-foreground: 25 25% 15%;
@@ -19,7 +21,7 @@
   --color-primary: 145 65% 35%;
   --color-primary-foreground: 0 0% 98%;
   --color-primary-glow: 145 65% 45%;
-  --color-secondary: 35 35% 92%;
+  --secondary: 35 35% 92%;
   --color-secondary-foreground: 25 25% 15%;
   --color-muted: 35 20% 95%;
   --color-muted-foreground: 25 15% 45%;
@@ -27,7 +29,7 @@
   --color-accent-foreground: 25 25% 15%;
   --color-destructive: 0 84.2% 60.2%;
   --color-destructive-foreground: 0 0% 98%;
-  --color-border: 35 25% 88%;
+  --color-border: 0 0% 100%;
   --color-input: 35 25% 88%;
   --color-ring: 145 65% 35%;
   --radius: 0.5rem;
@@ -42,12 +44,14 @@
 
 --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+--font-sans: "Inter", sans-serif;
 }
 
 /* ============================ */
 /* 🌙 DARK MODE THEME */
 /* ============================ */
-@theme dark .homepage {
+@theme dark{
 --color-background: 145 35% 8%;
 --color-foreground: 35 25% 95%;
 --color-card: 145 25% 12%;
@@ -65,7 +69,7 @@
 --color-muted-foreground: 35 15% 65%;
 --color-accent: 45 75% 55%;
 --color-accent-foreground: 145 35% 8%;
---color-border: 145 15% 20%;
+--color-border: 145 25% 12%;
 --color-input: 145 15% 20%;
 --color-ring: 145 65% 55%;
 --radius: 0.5rem;
@@ -82,7 +86,7 @@
 /* BASE STYLES */
 /* =============================================================== */
 @layer base {
-  body.homepage {
+  body {
     @apply bg-background text-foreground font-sans antialiased;
   }
 
@@ -176,8 +180,6 @@
   .card {
     @apply bg-card text-card-foreground rounded-xl shadow-card p-6 transition-smooth hover:shadow-glow;
   }
-
-  
 }
 
 @utility transition-* {

@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
+import Image from "next/image"
 
 const navigation = [
   {
@@ -52,8 +53,8 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="flex items-center space-x-2 px-0">
-          <GraduationCap className="h-7 w-7 text-sidebar-primary" />
-          <span className="font-semibold text-sidebar-foreground">Portal Asrama </span>
+          <Image src="/logo.png" alt="Logo" width={20} height={20} ></Image>
+          <span className="font-semibold text-sidebar-foreground">Portal Orang Tua</span>
         </div>
       </SidebarHeader>
       <SidebarContent>

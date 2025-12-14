@@ -37,9 +37,7 @@ const programDonasi = [
 ];
 
 const rekeningList = [
-  { bank: 'Bank Mandiri', norek: '1234567890', atas: 'Yayasan Asrama Nurul Hikmah' },
-  { bank: 'Bank BRI', norek: '0987654321', atas: 'Yayasan Asrama Nurul Hikmah' },
-  { bank: 'Bank BCA', norek: '5678901234', atas: 'Yayasan Asrama Nurul Hikmah' }
+  { bank: 'Bank Mandiri', norek: '1110024322196', atas: 'Sarmawi' },
 ];
 
 function CopyButton({ text }: { text: string }) {
@@ -176,22 +174,26 @@ export default function DonasiPage() {
 
 
   return (
-    <div className="py-16">
-      <div className="container mx-auto px-4 max-w-5xl">
+    <>
+    
+      <section className="py-16 hero-gradient text-white">
         {/* ... (Kode Header, Motivasi, Program Donasi, Rekening tetap sama) ... */}
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full warm-gradient mb-6">
             <Heart className="h-8 w-8 text-white" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Donasi & Kontribusi</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 max-w-2xl mx-auto">
             Berbagi kebaikan untuk masa depan pendidikan santri yang lebih cerah
           </p>
         </div>
+      </section>
 
+    <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+     <div className="py-16">
         {/* Motivasi */}
-        <Card className="mb-12 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
+        <Card className="mb-12 bg-linear-to-br from-primary/5 to-accent/5 border-primary/20">
           <CardContent className="p-8">
             <blockquote className="text-center italic text-lg mb-4">
               "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya"
@@ -278,17 +280,19 @@ export default function DonasiPage() {
             )}
             
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="nama">Nama Lengkap</Label>
                 <Input id="nama" name="nama" type="text" placeholder="Nama Anda" required onChange={handleChange} value={formData.nama} disabled={isLoading} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="alamat">Alamat</Label>
-                <Textarea id="alamat" name="alamat" placeholder="Alamat Anda" required onChange={handleChange} value={formData.alamat} disabled={isLoading} />
-              </div>
-              <div className="space-y-2">
                 <Label htmlFor="no_hp">Nomor HP/WhatsApp</Label>
                 <Input id="no_hp" name="no_hp" type="tel" placeholder="081234567890" required onChange={handleChange} value={formData.no_hp} disabled={isLoading} />
+              </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="alamat">Alamat</Label>
+                <Textarea id="alamat" name="alamat" placeholder="Alamat Anda" required onChange={handleChange} value={formData.alamat} disabled={isLoading} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
@@ -305,29 +309,26 @@ export default function DonasiPage() {
                 <Input id="bukti_tf" name="bukti_tf" type="file" required onChange={handleChange} className="file:text-foreground" disabled={isLoading} accept="image/png, image/jpeg, image/jpg, image/gif" />
               </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                {isLoading ? 'Mengirim...' : 'Kirim Konfirmasi'}
-              </Button>
+              <div className='flex items-center justify-center'>
+                <Button type="submit" className="w-sm" disabled={isLoading}>
+                  {isLoading && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  {isLoading ? 'Mengirim...' : 'Kirim Konfirmasi'}
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
 
         {/* ... (Kode Transparansi dan Footer tetap sama) ... */}
         {/* Transparansi */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Transparansi Donasi</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="mb-8 text-center">
             <p className="text-muted-foreground mb-4">
               Kami berkomitmen untuk mengelola setiap donasi dengan penuh amanah dan transparan. 
               Laporan penggunaan dana donasi dipublikasikan secara berkala melalui website dan media sosial kami.
             </p>
-          </CardContent>
-        </Card>
+        </div>
 
         {/* Footer Note */}
         <p className="text-center text-sm text-muted-foreground mt-8">
@@ -336,5 +337,6 @@ export default function DonasiPage() {
 
       </div>
     </div>
+    </>
   );
 }

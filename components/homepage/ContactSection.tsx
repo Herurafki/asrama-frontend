@@ -8,7 +8,7 @@ import { siteInfo } from '@/content/site';
 export const ContactSection = () => {
   return (
     <section className="py-16 bg-muted/30">
-      <div className="container mx-auto px-4">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <Badge variant="outline" className="mb-4">Hubungi Kami</Badge>
@@ -51,7 +51,7 @@ export const ContactSection = () => {
                 <p className="text-sm text-muted-foreground mb-2">
                   <strong>Jam Kunjung:</strong> {siteInfo.jamKunjung}
                 </p>
-                <Button variant="default" asChild>
+                <Button variant="hero" asChild>
                   {/* Ini sudah benar menggunakan <a> karena link eksternal */}
                   <a 
                     href={`https://wa.me/${siteInfo.whatsapp.replace(/[^0-9]/g, '')}`}
@@ -66,13 +66,18 @@ export const ContactSection = () => {
           </div>
 
           <div className="relative">
-            <Card className="overflow-hidden">
-              <div className="h-96 bg-muted flex items-center justify-center">
-                <p className="text-muted-foreground">
-                  [Peta lokasi akan ditampilkan di sini]
-                </p>
-              </div>
-            </Card>
+          <Card className="overflow-hidden border-gray-200">
+            <div className="h-96 w-full">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.738818346967!2d100.37182247472384!3d-0.8658606991257465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2fd4c7209d5b5893%3A0x4f1229617c1dedf2!2sMis%20Qur&#39;an%20Al%20falah!5e0!3m2!1sen!2sid!4v1764402630900!5m2!1sen!2sid" 
+             width="100%" 
+             height="100%" 
+             style={{ border: 0 }} 
+             allowFullScreen 
+             loading="lazy" 
+             referrerPolicy="no-referrer-when-downgrade">
+             </iframe>
+            </div>
+          </Card>
           </div>
         </div>
       </div>

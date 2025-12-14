@@ -1,13 +1,14 @@
+import { AuthProvider } from "@/context/AuthContext"
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-
+import "./globals.css"
 
 
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Asrama MIS-QU Al Falah',
+  description: 'Asrama terpadu yang mengembangkan akhlak mulia, prestasi akademik, dan kemandirian santri dalam lingkungan Islami yang kondusif.',
   generator: 'v0.app',
 }
 
@@ -19,15 +20,16 @@ export default function RootLayout({
   return (
     <html lang="id" >
       <head>
-        <style>{`
-html {
+        <style>{`html {
   font-family: ${GeistSans.style.fontFamily};
   --font-sans: ${GeistSans.variable};
   --font-mono: ${GeistMono.variable};
 }
         `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   )
 }

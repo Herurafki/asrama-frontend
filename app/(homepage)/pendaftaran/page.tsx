@@ -30,7 +30,6 @@ const persyaratan = [
   'Surat Keterangan Tidak Mampu (SKTM) dari desa/kelurahan',
   'Fotokopi Kartu Keluarga (1 lembar)',
   'Fotokopi Akta Kelahiran (1 lembar)',
-  'Fotokopi Ijazah terakhir (1 lembar)',
   'Pas foto 3x4 berwarna (4 lembar)',
   'Surat keterangan sehat dari dokter',
   'Surat pernyataan orang tua/wali (jika ada)',
@@ -126,20 +125,23 @@ export default function PendaftaranPage() {
   const waLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Assalamualaikum, saya ingin bertanya tentang penerimaan santri didik baru')}`;
 
   return (
-    <div className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <>
+    <section className="py-16 md:py-24 hero-gradient text-white">
         {/* Header (Diubah) */}
-        <section className="text-center mb-16">
-          <Badge className="mb-4" variant="default">
+        <section className="text-center px-4">
+          <Badge className="mb-4 text-primary" variant="secondary">
             Program Pendidikan Gratis
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Penerimaan Santri Didik Baru</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Penerimaan Siswa Penghuni Asrama</h1>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto">
             Membuka kesempatan bagi yatim & dhuafa untuk meraih masa depan gemilang
             dalam lingkungan yang islami dan penuh kasih.
           </p>
         </section>
+    </section>
 
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10">
+          <div className='py-16'>
         {/* CTA Utama */}
         <Card className="mb-16 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20 shadow-lg">
           <CardContent className="p-8 md:p-10 text-center">
@@ -168,20 +170,7 @@ export default function PendaftaranPage() {
         </Card>
 
         {/* Jadwal Penting */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-8">Jadwal Penting Penerimaan</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {jadwalPenting.map((item, idx) => (
-              <Card key={idx} className="text-center hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <item.icon className="h-9 w-9 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold text-lg">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.date}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+        
 
         {/* Program Unggulan */}
         <section className="mb-16">
@@ -335,6 +324,7 @@ export default function PendaftaranPage() {
           </Button>
         </section>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

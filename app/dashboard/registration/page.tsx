@@ -6,10 +6,10 @@ import axios from "axios"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Upload, User } from "lucide-react"
+import { toast } from "sonner"
 
 // ======= GANTI JIKA PERLU =======
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
@@ -34,8 +34,6 @@ interface StudentData {
 export default function StudentPage() {
   const fileRef = useRef<HTMLInputElement | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
   const [studentData, setStudentData] = useState<StudentData>({
     nama_lengkap: "", nama_panggilan: "", nis: "",
     tempat_lahir: "", tanggal_lahir: "", jenis_kelamin: "",
@@ -56,7 +54,7 @@ export default function StudentPage() {
   const handleSubmitStudent = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!validate()) return
-    setIsLoading(true); setError(""); setSuccess("")
+    setIsLoading(true); 
     try {
       const token = localStorage.getItem("auth_token")
       const formData = new FormData()
@@ -78,7 +76,7 @@ export default function StudentPage() {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
       })
 
-      setSuccess("Pendaftaran siswa berhasil disimpan.")
+      toast.success("Pendaftaran siswa berhasil disimpan.")
       setStudentData({
         nama_lengkap: "", nama_panggilan: "", nis: "",
         tempat_lahir: "", tanggal_lahir: "", jenis_kelamin: "",
@@ -87,7 +85,7 @@ export default function StudentPage() {
       })
       if (fileRef.current) fileRef.current.value = ""
     } catch (err: any) {
-      setError(axios.isAxiosError(err) ? (err.response?.data?.message || "Gagal menyimpan data siswa") : "Unexpected error")
+      toast.error(axios.isAxiosError(err) ? (err.response?.data?.message || "Gagal menyimpan data siswa") : "Unexpected error")
     } finally {
       setIsLoading(false)
     }
@@ -100,14 +98,10 @@ export default function StudentPage() {
         <p className="text-sm sm:text-base text-muted-foreground">Lengkapi data siswa</p>
       </div>
 
-      {error && <Alert variant="destructive"><AlertDescription className="text-sm">{error}</AlertDescription></Alert>}
-      {success && <Alert className="border-green-200 bg-green-50 text-green-800"><AlertDescription className="text-sm">{success}</AlertDescription></Alert>}
-
       <form onSubmit={handleSubmitStudent} onKeyDown={(e) => { if (e.key === "Enter") e.preventDefault() }}>
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2"><User className="h-5 w-5" />Data Siswa</CardTitle>
-            <CardDescription>Masukkan informasi lengkap siswa</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2">

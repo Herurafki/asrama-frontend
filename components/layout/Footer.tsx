@@ -1,25 +1,29 @@
 import Link from 'next/link';
 import { MapPin, Phone, Mail, Instagram, Facebook, Youtube } from 'lucide-react';
 import { siteInfo } from '@/content/site';
+import Image from 'next/image';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-muted/30 border-t">
+    <footer className="bg-muted/30 border-gray-300 border-t">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 hero-gradient rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">NH</span>
+            <div className='hidden md:block'>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+                  <Image src="/logo.png" alt="Logo" width={60} height={60}></Image>
+                </div>
+                <span className="font-bold text-lg">Asrama MIS Qur'an Al Falah</span>
               </div>
-              <span className="font-bold text-lg">Asrama Nurul Hikmah</span>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                {siteInfo.deskripsi}
+              </p>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              {siteInfo.deskripsi}
-            </p>
             <div className="flex space-x-3">
               {siteInfo.sosialMedia.instagram && (
                 <a 
@@ -60,7 +64,6 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li><Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">Beranda</Link></li>
               <li><Link href="/tentang" className="text-muted-foreground hover:text-foreground transition-colors">Tentang</Link></li>
-              <li><Link href="/fasilitas" className="text-muted-foreground hover:text-foreground transition-colors">Fasilitas</Link></li>
               <li><Link href="/pengumuman" className="text-muted-foreground hover:text-foreground transition-colors">Pengumuman</Link></li>
               <li><Link href="/galeri" className="text-muted-foreground hover:text-foreground transition-colors">Galeri</Link></li>
             </ul>
@@ -102,12 +105,13 @@ export function Footer() {
       </div>
       
       {/* Bottom */}
-      <div className="border-t bg-muted/50">
+      <div className="border-t border-gray-300 bg-muted/50">
         <div className="container mx-auto px-4 py-4">
           <div className="text-center text-sm text-muted-foreground">
             <p>&copy; {currentYear} {siteInfo.nama}. Semua hak cipta dilindungi.</p>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
