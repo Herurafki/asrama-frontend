@@ -51,11 +51,11 @@ export default function PengurusPage() {
               </CardHeader>
 
               <CardContent className="space-y-4">
-                {pengurus.bio && (
+                {/* {pengurus.bio && (
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {pengurus.bio}
                   </p>
-                )}
+                )} */}
 
                 {pengurus.kontak && (
                   <Button 

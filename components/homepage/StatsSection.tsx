@@ -1,6 +1,3 @@
-// components/homepage/StatsSection.tsx
-
-// --- KODE INI BISA LANGSUNG DISALIN ---
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Award, GraduationCap, CupSoda } from 'lucide-react';
@@ -32,7 +29,7 @@ export const StatsSection = () => {
     {
       icon: Award,
       label: 'Dana Langsung',
-      value: 85, // Kamu bisa ganti ini ke stats.prestasi jika ada
+      value: 85, 
       suffix: '%',
       description: 'Transparansi & Amanah'
     }

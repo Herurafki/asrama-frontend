@@ -26,7 +26,6 @@ export default function ProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
   const [editForm, setEditForm] = useState({ name: "", email: "" })
   const [passwordForm, setPasswordForm] = useState({
     current_password: "",

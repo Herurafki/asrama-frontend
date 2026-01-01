@@ -12,11 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Users } from "lucide-react"
 import { toast } from "sonner"
 
-/** --- Endpoint sederhana ---
- * Pastikan .env.local: NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000
- * (JANGAN ada /api di belakang)
- */
-const BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
+/** --- Endpoint ---*/
+const BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://asramamiqu.site"
 const ENDPOINT_PARENT = `${BASE}/api/orangtua` // GET (prefill) & POST (upsert)
 
 type ParentData = {
@@ -68,19 +65,18 @@ export default function ParentPage() {
         })
         const existing = res?.data?.data ?? res?.data
         if (!ignore && existing) setData(sanitize(existing))
-      } catch {/* belum ada → biarkan kosong */}
+      } catch {}
     })()
     return () => { ignore = true }
   }, [])
 
-  // Simpan (POST /api/orangtua) — upsert
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true); 
     try {
       const token = localStorage.getItem("auth_token")
       const fd = new FormData()
-      // KIRIM SEMUA FIELD — supaya benar2 overwrite (termasuk jadi kosong)
       Object.entries(data).forEach(([k, v]) => fd.append(`orangtua[${k}]`, v ?? ""))
 
       await axios.post(ENDPOINT_PARENT, fd, {

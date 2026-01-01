@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, X, LogIn } from 'lucide-react'; // Import LogIn icon
+import { Menu, X, LogIn } from 'lucide-react'; 
 import { siteInfo } from '@/content/site';
 import Image from 'next/image';
 
@@ -31,7 +31,7 @@ export const Navigation = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-gray-200 shadow-soft">
-      <div className="w-full bg-white">       {/* Full width */}
+      <div className="w-full bg-white">      
       <div className="max-w-[1400px] mx-auto px-6">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -85,20 +85,18 @@ export const Navigation = () => {
               </SheetTrigger>
               <SheetContent 
               side="right" 
-              className="w-72 bg-white" /* <-- FIX 1: Tambahkan bg-background */
+              className="w-72 bg-white" 
             >
               <SheetHeader>
                 <div className="flex items-center justify-between mb-6">
                   
-                  {/* FIX 3: Gunakan SheetTitle, bukan h2 */}
                   <SheetTitle className="text-lg font-semibold">
                     Menu Navigasi
                   </SheetTitle>
         
                 </div>
-              </SheetHeader> {/* <-- FIX 2: Tutup Header di sini */}
+              </SheetHeader> 
 
-              {/* FIX 2: Pindahkan semua konten ini KELUAR dari SheetHeader */}
               <div className="flex flex-col space-y-2">
                 {navItems.map((item) => (
                   <Link
@@ -116,7 +114,7 @@ export const Navigation = () => {
                 ))}
               </div>
 
-              {/* Mobile Login Button Section (juga di luar header) */}
+              {/* Mobile Login Button Section */}
               <div className="border-t my-4"></div>
               <div className="pt-2">
                   <Link href="/auth/login" onClick={() => setIsOpen(false)}>

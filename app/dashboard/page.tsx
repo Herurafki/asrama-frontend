@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Users, UserPlus, FileText, CheckCircle, Clock, XCircle, Plus } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
+const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://asramamiqu.site"
 const BASE = RAW_BASE.replace(/\/+$/, "")
 const API = (p: string) => `${BASE}${p.startsWith("/") ? "" : "/"}${p}`
 

@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Search, Plus, Eye, Check, X, Clock, Calendar } from "lucide-react"
 
-const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
+const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://asramamiqu.site"
 const BASE = RAW_BASE.replace(/\/+$/,"")
 const API = (p: string) => `${BASE}${p.startsWith("/") ? "" : "/"}${p}`
 
@@ -129,7 +129,7 @@ export default function PermitsPage() {
         headers: { Authorization: `Bearer ${token}` },
       })
       const created: Permit = (res.data?.data ?? res.data) as Permit
-      // pastikan foto absolut
+      
       created.siswa = { ...created.siswa, foto: absUrl(created?.siswa?.foto ?? null) }
       setPermits((prev) => [created, ...prev])
       setNewPermit({ siswa_id: "", alasan: "", tanggal_keluar: "", jam_keluar: "" })
@@ -328,7 +328,7 @@ export default function PermitsPage() {
                               </div>
                             </div>
 
-                            {/* (dihilangkan) bagian waktu kembali */}
+                            {}
                           </div>
 
                           <div className="space-y-2">

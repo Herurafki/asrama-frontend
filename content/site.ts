@@ -26,19 +26,19 @@ export const stats: Stats = {
 };
 
 export const visiMisi = {
-  visi: "Menjadi asrama terdepan dalam mencetak generasi muslim yang berakhlak mulia, berprestasi, dan mandiri",
+  visi: "MENCINTAI AL-QUR’AN, BERKARAKTER, CERDAS DAN TERAMPIL",
   misi: [
-    "Menyelenggarakan pendidikan karakter berbasis nilai-nilai Islam",
-    "Mengembangkan potensi akademik dan non-akademik santri secara optimal", 
-    "Menciptakan lingkungan kondusif untuk pembelajaran dan pengembangan diri",
-    "Membangun kemandirian dan kepemimpinan dalam kehidupan sehari-hari"
+    "Mewujudkan pembelajaran  yang terintegrasi dengan Al-Qur'an sehingga terciptanya warga madrasah yang hafal Al-Qur'an",
+    "Mewujudkan warga madrasah yang mempunyai karakter dan adab sesuai dengan Al-Qur'an dan Hadist", 
+    "Mewujudkan warga madrasah yang cerdas dalam menyikapi perkembangan teknologi dan tantangan zaman",
+    "Pengembangan potensi keterampilan siswa madrasah, lifeskill ibadah, shalat, doa dan sholat jenazah, terutama bagi siswa yang yatim, piatu, muallaf dan dhuafa"
   ]
 };
 
 export const sejarahSingkat = `
-Asrama Nurul Hikmah didirikan pada tahun 1985 dengan visi menciptakan generasi muslim yang unggul dalam ilmu dan akhlak. 
+Asrama MIS Quran Al Falah awalnya di dirikan pada tahun 2017 sebagai lembaga panti untuk anak yatim piatu dan berasal dari keluarga dhuafa. Berawal dari lembaga sosial yang berfokus pada pendidikan dan amal, beberapa tahun kemudian terbentuklah sekolah formal berbentuk Madrasah Ibtidaiyah
 
-Berawal dari sebuah bangunan sederhana dengan 20 santri, kini telah berkembang menjadi kompleks asrama modern yang menampung lebih dari 200 santri dari berbagai daerah.
+Dibawah lembaga Yayasan Shine Al Falah, Asrama MIS Qur'an Al Falah berdiri dengan visi dan misi untuk membantu anak yatim piatu dan anak-anak miskin untuk mendapatkan pendidikan yang berkualitas dan membangun kemandirian dan kepemimpinan dalam kehidupan sehari-hari
 
-Dengan fasilitas lengkap dan program pendidikan terpadu, Asrama Nurul Hikmah telah meluluskan ribuan alumni yang tersebar di berbagai profesi dan berperan aktif dalam pembangunan masyarakat.
+Dengan pendidikan yang berkualitas, Asrama MIS Qur'an Al Falah memberikan kesempatan kepada anak-anak untuk memperoleh ilmu dan membangun diri dalam lingkungan Islami yang kondusif
 `;

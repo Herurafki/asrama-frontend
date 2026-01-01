@@ -16,16 +16,15 @@ import {
   Calendar,
   MessageCircle,
   UserPlus,
-  Clock,
   BookOpen,
   Award,
   HelpCircle,
-  HeartHandshake, // Ditambahkan untuk 'Kriteria'
+  HeartHandshake,
 } from 'lucide-react';
 
 // --- DATA ---
 
-// 1. Persyaratan (Disesuaikan untuk Panti)
+
 const persyaratan = [
   'Surat Keterangan Tidak Mampu (SKTM) dari desa/kelurahan',
   'Fotokopi Kartu Keluarga (1 lembar)',
@@ -35,7 +34,7 @@ const persyaratan = [
   'Surat pernyataan orang tua/wali (jika ada)',
 ];
 
-// 2. Kriteria Penerimaan (PENGGANTI BIAYA)
+
 const kriteriaPenerimaan = [
   {
     icon: CheckCircle,
@@ -59,7 +58,7 @@ const kriteriaPenerimaan = [
   },
 ];
 
-// 3. Alur Pendaftaran (Disesuaikan)
+
 const alurSteps = [
   { no: 1, title: 'Pengisian Formulir', desc: 'Isi formulir pendaftaran online atau datang langsung ke panti.' },
   { no: 2, title: 'Verifikasi Berkas & Survei', desc: 'Tim kami akan memverifikasi kelengkapan berkas dan mungkin melakukan kunjungan (survei).' },
@@ -68,15 +67,7 @@ const alurSteps = [
   { no: 5, title: 'Konfirmasi Ulang', desc: 'Konfirmasi kedatangan dan penandatanganan berkas asrama.' },
 ];
 
-// 4. Jadwal Penting (Tetap)
-const jadwalPenting = [
-  { icon: Calendar, title: 'Pendaftaran Dibuka', date: '1 November 2024' },
-  { icon: Clock, title: 'Pendaftaran Ditutup', date: '31 Januari 2025' },
-  { icon: FileText, title: 'Seleksi & Wawancara', date: '1 - 7 Februari 2025' },
-  { icon: UserPlus, title: 'Konfirmasi Ulang', date: '10 - 15 Februari 2025' },
-];
 
-// 5. Program Unggulan (Tetap)
 const programUnggulan = [
   {
     icon: BookOpen,
@@ -95,7 +86,7 @@ const programUnggulan = [
   },
 ];
 
-// 6. FAQ (Disesuaikan)
+
 const faqData = [
   {
     id: 'faq-1',
@@ -119,15 +110,15 @@ const faqData = [
   },
 ];
 
-// --- KOMPONEN PAGE ---
+
 export default function PendaftaranPage() {
-  const whatsappNumber = '+6281234567890';
-  const waLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Assalamualaikum, saya ingin bertanya tentang penerimaan santri didik baru')}`;
+  const whatsappNumber = '+6282173023009';
+  const waLink = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('Assalamualaikum, saya ingin bertanya tentang penerimaan penghuni asrama')}`;
 
   return (
     <>
     <section className="py-16 md:py-24 hero-gradient text-white">
-        {/* Header (Diubah) */}
+        {/* Header*/}
         <section className="text-center px-4">
           <Badge className="mb-4 text-primary" variant="secondary">
             Program Pendidikan Gratis
@@ -169,9 +160,6 @@ export default function PendaftaranPage() {
           </CardContent>
         </Card>
 
-        {/* Jadwal Penting */}
-        
-
         {/* Program Unggulan */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-8">Program Pembinaan Kami</h2>
@@ -194,7 +182,7 @@ export default function PendaftaranPage() {
           </div>
         </section>
 
-        {/* Persyaratan & Kriteria (Biaya Dihapus) */}
+        {/* Persyaratan & Kriteria*/}
         <section className="mb-16">
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Persyaratan */}
@@ -249,7 +237,7 @@ export default function PendaftaranPage() {
           </div>
         </section>
 
-        {/* Alur Pendaftaran (Disesuaikan) */}
+        {/* Alur Pendaftaran*/}
         <section className="mb-16">
           <Card>
             <CardHeader>
@@ -264,7 +252,6 @@ export default function PendaftaranPage() {
               <div className="space-y-2">
                 {alurSteps.map((step, idx) => (
                   <div key={step.no} className="relative flex gap-6">
-                    {/* Garis Vertikal */}
                     {idx !== alurSteps.length - 1 && (
                       <div className="absolute left-5 top-10 h-full w-px bg-border border-l-2 border-dashed" />
                     )}
@@ -288,7 +275,7 @@ export default function PendaftaranPage() {
           </Card>
         </section>
 
-        {/* FAQ (Disesuaikan) */}
+        {/* FAQ */}
         <section className="max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl font-bold text-center mb-8">Pertanyaan Umum (FAQ)</h2>
           <div className="flex items-center justify-center gap-2 text-muted-foreground mb-4">

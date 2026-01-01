@@ -22,7 +22,7 @@ import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 
 /** =========== Endpoint builder =========== */
-const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000"
+const RAW_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "https://asramamiqu.site"
 const BASE = RAW_BASE.replace(/\/+$/, "")
 const HAS_API = /\/api$/.test(BASE)
 const API_PREFIX = HAS_API ? "" : "/api"

@@ -12,7 +12,7 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import { toast } from 'sonner';
 
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://asramamiqu.site';
 
 
 const programDonasi = [
@@ -83,13 +83,11 @@ export default function DonasiPage() {
     bukti_tf: null as File | null,
   });
 
-  // State untuk UI feedback
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
 
-  // Handler untuk mengubah state saat input diisi
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
@@ -107,21 +105,19 @@ export default function DonasiPage() {
     }
   };
 
-  // Handler untuk submit form
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
     setSuccess(null);
 
-    // Validasi file
     if (!formData.bukti_tf) {
         setError('Mohon upload bukti transfer Anda.');
         setIsLoading(false);
         return;
     }
 
-    // 1. Buat FormData
+    
     const data = new FormData();
     data.append('nama', formData.nama);
     data.append('alamat', formData.alamat);
@@ -130,18 +126,18 @@ export default function DonasiPage() {
     data.append('jumlah', formData.jumlah);
     data.append('bukti_tf', formData.bukti_tf);
 
-    // 2. Kirim data ke API
+    
     try {
         const response = await fetch(`${API_URL}/api/donasi`, {
             method: 'POST',
             body: data,
-            // Header 'Content-Type': 'multipart/form-data' diatur otomatis oleh browser
+
         });
 
         if (!response.ok) {
             const errorData = await response.json();
             
-            // Tangani error validasi 422 dari Laravel
+
             if (response.status === 422) {
                 const errorMessages = Object.values(errorData).map((err) => 
                     (err as string[]).join(' ')
@@ -155,11 +151,10 @@ export default function DonasiPage() {
         const result = await response.json();
         toast.success(result.message || 'Konfirmasi donasi berhasil dikirim. Terima kasih!');
 
-        // Reset form
         setFormData({
             nama: '', alamat: '', no_hp: '', tgl_kirim: '', jumlah: '', bukti_tf: null
         });
-        // Reset file input
+
         const fileInput = document.getElementById('bukti_tf') as HTMLInputElement;
         if (fileInput) {
             fileInput.value = '';
@@ -177,7 +172,6 @@ export default function DonasiPage() {
     <>
     
       <section className="py-16 hero-gradient text-white">
-        {/* ... (Kode Header, Motivasi, Program Donasi, Rekening tetap sama) ... */}
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full warm-gradient mb-6">
@@ -259,7 +253,6 @@ export default function DonasiPage() {
           </CardHeader>
           <CardContent>
             
-            {/* PESAN SUKSES */}
             {success && (
               <Alert className="mb-4 border-green-500 text-green-700 dark:border-green-700 dark:text-green-500">
                 <CheckCircle className="h-4 w-4" />
@@ -269,11 +262,9 @@ export default function DonasiPage() {
               </Alert>
             )}
 
-            {/* PESAN ERROR */}
             {error && (
               <Alert variant="destructive" className="mb-4">
                 <AlertDescription>
-                  {/* Ubah \n menjadi <br> untuk error validasi */}
                   <div dangerouslySetInnerHTML={{ __html: error.replace(/\n/g, '<br />') }} />
                 </AlertDescription>
               </Alert>
@@ -321,7 +312,6 @@ export default function DonasiPage() {
           </CardContent>
         </Card>
 
-        {/* ... (Kode Transparansi dan Footer tetap sama) ... */}
         {/* Transparansi */}
         <div className="mb-8 text-center">
             <p className="text-muted-foreground mb-4">
