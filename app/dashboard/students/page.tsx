@@ -11,14 +11,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Search, Plus, Eye } from "lucide-react"
-import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
 
 /** =========== Endpoint builder =========== */

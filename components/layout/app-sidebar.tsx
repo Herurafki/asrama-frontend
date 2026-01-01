@@ -1,6 +1,6 @@
 "use client"
 
-import { GraduationCap, LayoutDashboard, Users, UserPlus, FileText, User, LucideHome } from "lucide-react"
+import { LayoutDashboard, Users, UserPlus, FileText, User, LucideHome } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {

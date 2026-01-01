@@ -1,9 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Youtube, Eye, Target } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Eye, Target } from 'lucide-react';
 import { siteInfo, visiMisi, sejarahSingkat } from '@/content/site';
 import { Separator } from '@radix-ui/react-select';
 
